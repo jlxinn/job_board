@@ -17,3 +17,5 @@ db.sqlite3
 # Django migrations
 apps/*/migrations/*.py
 !apps/*/migrations/__init__.py
+
+Task_4_me

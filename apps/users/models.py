@@ -42,3 +42,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    @property
+    def user_type(self):
+        is_employer = self.companies.exists()
+        is_applicant = self.applications.exists()
+
+        if is_employer and is_applicant:
+            return "Employer & Applicant"
+        elif is_employer:
+            return "Employer"
+        elif is_applicant:
+            return "Applicant"
+        return "Regular User"
