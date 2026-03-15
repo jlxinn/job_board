@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Application
-from jobs.serializers import JobSerializer
+from apps.jobs.serializers import JobSerializer
 
 class ApplicationSerializer(serializers.ModelSerializer):
     job = JobSerializer(read_only=True)

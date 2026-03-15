@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Job
-from companies.serializers import CompanySerializer
+from apps.companies.serializers import CompanySerializer
 
 class JobSerializer(serializers.ModelSerializer):
     company = CompanySerializer(read_only=True)

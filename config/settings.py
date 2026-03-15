@@ -127,7 +127,8 @@ REST_FRAMEWORK = {
         'anon': '100/hour',  # Лимит запросов для анонимных пользователей
     },
     'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.JSONRenderer',  # Рендеринг в JSON
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',  # Рендеринг в JSON
     ],
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',  # Парсинг JSON-данных
