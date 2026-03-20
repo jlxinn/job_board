@@ -133,6 +133,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',  # Парсинг JSON-данных
     ],
+    'DEFAULT_FILTER_BACKENDS':[
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
 }
 
 AUTH_USER_MODEL = 'users.User'

@@ -12,12 +12,19 @@ class ApplicationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        qs = Application.objects.none()
 
-        if "Applicant" in user.user_type or "Employer & Applicant" in user.user_type:
-            qs = qs | Application.objects.filter(applicant=user)
+        return Application.objects.filter(
+            Q(applicant=user) | Q(job__compnay__owner=user)
+        ).distinct
+    
+    def perform_create(self, serializer):
+        serializer.save(applicant=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+    
+    def partial_update(self, request, *args, **kwargs):
+        if "status" not in request.data:
+            return Response({"error": "Можно менять только статус"}, status=400)
         
-        if "Employer" in user.user_type or "Employer & Applicant" in user.user_type:
-            qs = qs | Application.objects.filter(job__company__owner=user)
-        
-        return qs.distinct()
+        return super().partial_update(request, *args, **kwargs)
