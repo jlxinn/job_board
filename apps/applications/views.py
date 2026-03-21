@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from .models import Application
 from .serializers import ApplicationSerializer
+from rest_framework.response import Response
 
 from .permissions import IsApplicantOrJobOwner
 from django.db.models import Q
