@@ -19,3 +19,7 @@ class Application(models.Model):
 
     class Meta:
         unique_together = ("applicant", "job")
+
+        indexes = [
+            models.Index(fields=[ "job", "status"])
+        ]
