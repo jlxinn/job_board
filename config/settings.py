@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,6 +23,8 @@ DJANGO_APPS = [
 
 THIRD_PATY_APPS = [
     'rest_framework',
+    'rest_framework.authtoken',
+    'drf_spectacular',
 ]
 
 LOCAL_APPS = [
@@ -136,6 +139,16 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS':[
         'django_filters.rest_framework.DjangoFilterBackend'
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 AUTH_USER_MODEL = 'users.User'
+
+SPECTACULAR_SETTINGS = {
+    'TITTLE': 'Job Board Api',
+    'DESCRIPTION': 'Api для работы с вакансиями и откликами',
+    'VERSION': '1.0.0',
+}

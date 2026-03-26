@@ -9,7 +9,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Application
-        fields = ['id', 'job', 'applicant', 'cover_letter', 'resume', 'status', 'created_at']
+        fields = ['id', 'job', 'applicant', 'cover_letter', 'resume', 'status', 'created_at', 'job_detail']
         read_only_fields = ['applicant', 'status', 'created_at']
 
     def validate(self, data):
