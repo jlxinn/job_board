@@ -4,7 +4,8 @@ from .models import Company
 
 class CompanySerializer(serializers.ModelSerializer):
     owner = serializers.StringRelatedField(read_only=True)
-    #jobs = JobSerializer(many=True, read_only=True)
+    #jobs = JobSerializer(read_only=True)
+    website = serializers.URLField(allow_null=True, allow_blank=True)
 
     class Meta:
         model = Company

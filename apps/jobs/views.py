@@ -23,6 +23,6 @@ class JobViewSet(viewsets.ModelViewSet):
         company = get_object_or_404(
             Company,
             id=company_id,
-            owners=self.request.user
+            owner=self.request.user
         )
         serializer.save(company=company)

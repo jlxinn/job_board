@@ -6,6 +6,7 @@ from apps.jobs.serializers import JobSerializer
 class ApplicationSerializer(serializers.ModelSerializer):
     job = serializers.PrimaryKeyRelatedField(queryset=Job.objects.all())
     job_detail = JobSerializer(source='job', read_only=True)
+    resume = serializers.FileField(required=False, allow_null=True, use_url=True)
 
     class Meta:
         model = Application
@@ -34,3 +35,14 @@ class ApplicationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Статус уже финальный")
         
         return value
+    
+    def valdate_resume(self, value):
+        if not value:
+            return None
+        return value
+    
+    def to_internal_value(self, data):
+        data = data.copy()
+        if data.get("resume") == "":
+            data.pop("resume")
+        return super().to_internal_value(data)

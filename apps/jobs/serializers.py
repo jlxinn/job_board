@@ -1,14 +1,17 @@
 from rest_framework import serializers
 from .models import Job
+from ..companies.models import Company
 from apps.companies.serializers import CompanySerializer
 
 class JobSerializer(serializers.ModelSerializer):
-    company = CompanySerializer(read_only=True)
+    company_detail = CompanySerializer(source='company', read_only=True)
+    company = serializers.PrimaryKeyRelatedField(queryset=Company.objects.all(), write_only=True)
+
 
     class Meta:
         model = Job
-        fields = ['id', 'company', 'title', 'description', 'salary', 'location', 'created_at', 'is_active']
-        read_only_fields = ['company', 'created_at']
+        fields = ['id', 'company', 'company_detail', 'title', 'description', 'salary', 'location', 'created_at', 'is_active']
+        read_only_fields = ['id', 'company_detail','created_at']
 
     def validate_title(self, value):
         value = value.strip()
@@ -22,7 +25,6 @@ class JobSerializer(serializers.ModelSerializer):
         return value
     
     
-     
     def validate_salary(self, value):
         
         if value <= 0:

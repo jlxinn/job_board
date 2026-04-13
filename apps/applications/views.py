@@ -15,8 +15,8 @@ class ApplicationViewSet(viewsets.ModelViewSet):
         user = self.request.user
 
         return Application.objects.filter(
-            Q(applicant=user) | Q(job__compnay__owner=user)
-        ).distinct
+            Q(applicant=user) | Q(job__company__owner=user)
+        ).distinct()
     
     def perform_create(self, serializer):
         serializer.save(applicant=self.request.user)
