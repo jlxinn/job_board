@@ -6,10 +6,20 @@ from rest_framework.response import Response
 from .permissions import IsApplicantOrJobOwner
 from django.db.models import Q
 
+from django_filters.rest_framework import DjangoFilterBackend, OrderingFilter
+from .filters import ApplicationFilters
+
+
+
 class ApplicationViewSet(viewsets.ModelViewSet):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
     permission_classes = [IsApplicantOrJobOwner]
+
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_class = ApplicationFilters
+    ordering_fields = ['created_at', 'status', '']
+    ordering = ['-created_at']
 
     def get_queryset(self):
         user = self.request.user
