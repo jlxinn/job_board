@@ -9,6 +9,12 @@ from django.shortcuts import get_object_or_404
 from apps.companies.models import Company
 from .filters import JobFilters
 
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+from apps.pagination import CustomPagination
+
+
 class JobViewSet(viewsets.ModelViewSet):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
@@ -16,6 +22,8 @@ class JobViewSet(viewsets.ModelViewSet):
 
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = JobFilters
+    pagination_class = CustomPagination
+
     search_fields = ['title', 'description', 'company__name']
     ordering_fields = ['salary', 'created_at']
     ordering = ['-created_at']
@@ -38,3 +46,13 @@ class JobViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(is_active=True)
 
         return queryset
+    
+    @action(detail=False, methods=['get'])
+    def my(self, request):
+        qs = self.get_queryset().filter(company__owner=request.user)
+        page = self.paginate_queryset(qs)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(qs, many=True)
+        return Response(serializer.data)
