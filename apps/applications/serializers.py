@@ -36,7 +36,7 @@ class ApplicationSerializer(serializers.ModelSerializer):
         
         return value
     
-    def valdate_resume(self, value):
+    def validate_resume(self, value):
         if not value:
             return None
         return value

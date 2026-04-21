@@ -29,14 +29,7 @@ class JobViewSet(viewsets.ModelViewSet):
     ordering = ['-created_at']
 
     def perform_create(self, serializer):
-        company_id = self.request.data.get('company')
-
-        company = get_object_or_404(
-            Company,
-            id=company_id,
-            owner=self.request.user
-        )
-        serializer.save(company=company)
+        serializer.save()
 
     def get_queryset(self):
         queryset = super().get_queryset()

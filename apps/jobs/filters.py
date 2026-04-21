@@ -9,4 +9,4 @@ class JobFilters(django_filters.FilterSet):
 
     class Meta:
         model = Job
-        fields = ['is_active', 'salary']
+        fields = ['is_active']

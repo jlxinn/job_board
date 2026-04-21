@@ -9,7 +9,7 @@ class IsCompanyOwner(BasePermission):
             return True
         
         if request.method == "POST":
-            return "Employer" in user.user_type or "Regular User" in user.user_type or "Employer & Applicant" in user.user_type
+            return user.user_type in ['Employer', 'Regular User', 'Employer & Applicant']
         
         return True
 

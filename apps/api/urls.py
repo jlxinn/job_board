@@ -8,6 +8,7 @@ from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
 )
+from rest_framework.authtoken.views import obtain_auth_token
 
 router = DefaultRouter()
 router.register("jobs", JobViewSet, basename='jobs')
@@ -19,4 +20,5 @@ urlpatterns = [
     path('auth/register/', RegisterView.as_view(), name='register'),
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('docs/', SpectacularSwaggerView.as_view(url_name='schema')),
+    path('auth/login/', obtain_auth_token),
 ]

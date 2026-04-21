@@ -134,7 +134,9 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',  # Рендеринг в JSON
     ],
     'DEFAULT_PARSER_CLASSES': [
-        'rest_framework.parsers.JSONParser',  # Парсинг JSON-данных
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.FormParser'
     ],
     'DEFAULT_FILTER_BACKENDS':[
         'django_filters.rest_framework.DjangoFilterBackend'
@@ -148,7 +150,7 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'users.User'
 
 SPECTACULAR_SETTINGS = {
-    'TITTLE': 'Job Board Api',
+    'TITLE': 'Job Board Api',
     'DESCRIPTION': 'Api для работы с вакансиями и откликами',
     'VERSION': '1.0.0',
 }

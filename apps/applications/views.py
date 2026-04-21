@@ -24,7 +24,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = ApplicationFilters
     pagination_class = CustomPagination
-    ordering_fields = ['created_at', 'status', '']
+    ordering_fields = ['created_at', 'status']
     ordering = ['-created_at']
 
     def get_queryset(self):
@@ -48,7 +48,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=['get'])
     def my (self, request):
-        qs = Application.objects.filter(applicant=request.user)
+        qs = self.get_queryset.filter(applicant=request.user)
         page = self.paginate_queryset(qs)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
@@ -58,7 +58,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=['get'])
     def incoming(self, request):
-        qs = Application.objects.filter(job__company__owner=request.user)
+        qs = self.get_queryset.filter(job__company__owner=request.user)
         page = self.paginate_queryset(qs)
         if page is not None:
             serializer = self.get_serializer(page, many=True)

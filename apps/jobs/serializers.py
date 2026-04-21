@@ -31,3 +31,11 @@ class JobSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Зарплата должна быть больше 0!")
         
         return value
+    
+    def validate_company(self, value):
+        request = self.context['request']
+        if value.owner != request.user:
+            raise serializers.ValidationError(
+                "Это не ваша компания"
+            )
+        return value
