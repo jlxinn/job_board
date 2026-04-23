@@ -46,3 +46,25 @@ class ApplicationSerializer(serializers.ModelSerializer):
         if data.get("resume") == "":
             data.pop("resume")
         return super().to_internal_value(data)
+    
+
+
+class StatusSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Application
+        fields = ['status']
+        extra_kwargs = {
+            'status': {
+                'help_text': 'Новый статус отклика',
+                'choices': ['accepted', 'rejected']
+            }
+        }
+
+    def validate_status(self, value):
+        instance = self.instance
+
+        if instance.status != 'pending':
+            raise serializers.ValidationError('Статус уже финальный')
+        
+        return value

@@ -1,10 +1,10 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from .models import Application
 from apps.pagination import CustomPagination
-from .serializers import ApplicationSerializer
+from .serializers import ApplicationSerializer, StatusSerializer
 from rest_framework.response import Response
 
-from .permissions import IsApplicantOrJobOwner
+from .permissions import ApplicantPermissions
 from django.db.models import Q
 
 from django_filters.rest_framework import DjangoFilterBackend
@@ -19,7 +19,7 @@ from rest_framework.response import Response
 class ApplicationViewSet(viewsets.ModelViewSet):
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
-    permission_classes = [IsApplicantOrJobOwner]
+    permission_classes = [ApplicantPermissions]
 
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_class = ApplicationFilters
@@ -48,7 +48,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=['get'])
     def my (self, request):
-        qs = self.get_queryset.filter(applicant=request.user)
+        qs = self.get_queryset().filter(applicant=request.user)
         page = self.paginate_queryset(qs)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
@@ -58,10 +58,33 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=['get'])
     def incoming(self, request):
-        qs = self.get_queryset.filter(job__company__owner=request.user)
+        qs = self.get_queryset().filter(job__company__owner=request.user)
         page = self.paginate_queryset(qs)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)
         serializer = self.get_serializer(qs, many=True)
         return Response(serializer.data)
+    
+    @action(detail=True, methods=['PATCH'], serializer_class=StatusSerializer)
+    def status(self, request, pk=None):
+        application = self.get_object()
+    
+        if application.job.company.owner != request.user:
+            return Response(
+                {"error": "Нет прав"}, 
+                status=status.HTTP_403_FORBIDDEN
+            )
+        
+        serializer = StatusSerializer(
+            application, 
+            data={'status': request.data.get('status')}, 
+            partial=True,
+            context={'request': request}
+        )
+        
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

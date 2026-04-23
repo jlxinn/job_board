@@ -1,21 +1,27 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
-class IsApplicantOrJobOwner(BasePermission):
+class ApplicantPermissions(BasePermission):
 
     def has_permission(self, request, view):
-        return request.user and request.user.is_authenticated
+        if not request.user  or not request.user.is_authenticated:
+            return False
+        
+        if request.method == 'POST':
+            return True 
+        return True
     
     def has_object_permission(self, request, view, obj):
+        user = request.user
 
         if request.method in SAFE_METHODS:
             return (
-                obj.applicant == request.user or obj.job.company.owner == request.user
+                obj.applicant == user or obj.job.company.owner == user 
             )
         
         if request.method in ["PATCH", "PUT"]:
-            return obj.job.company.owner == request.user
+            return obj.job.company.owner == user
         
         if request.method == "DELETE":
-            return obj.applicant == request.user
+            return obj.applicant == user
         
         return False

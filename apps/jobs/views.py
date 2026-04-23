@@ -4,7 +4,7 @@ from .serializers import JobSerializer
 from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from .permissions import IsCompanyOwner
+from .permissions import JobsPermissions
 from django.shortcuts import get_object_or_404
 from apps.companies.models import Company
 from .filters import JobFilters
@@ -18,7 +18,7 @@ from apps.pagination import CustomPagination
 class JobViewSet(viewsets.ModelViewSet):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly, IsCompanyOwner]
+    permission_classes = [IsAuthenticatedOrReadOnly, JobsPermissions]
 
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = JobFilters
