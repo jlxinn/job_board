@@ -11,9 +11,9 @@ from drf_spectacular.views import (
 from rest_framework.authtoken.views import obtain_auth_token
 
 router = DefaultRouter()
-router.register("jobs", JobViewSet, basename='jobs')
-router.register("companies", CompanyViewSet, basename='companies')
-router.register("applications", ApplicationViewSet, basename='applications')
+router.register("jobs", JobViewSet, basename='job')
+router.register("companies", CompanyViewSet, basename='company')
+router.register("applications", ApplicationViewSet, basename='application')
 
 urlpatterns = [
     path('', include(router.urls)),

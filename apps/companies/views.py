@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from .permissions import IsCompanyOwner
+from .permissions import CompaniesPermissions
 from .models import Company
 from .serializers import CompanySerializer
 from rest_framework.filters import SearchFilter
@@ -12,7 +12,7 @@ from rest_framework.response import Response
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
-    permission_classes = [IsAuthenticatedOrReadOnly, IsCompanyOwner]
+    permission_classes = [IsAuthenticatedOrReadOnly, CompaniesPermissions]
     filter_backends = [SearchFilter]
     pagination_class = CustomPagination
     search_fields = ['name', 'description']

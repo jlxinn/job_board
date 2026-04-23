@@ -19,6 +19,7 @@ class Application(models.Model):
 
     class Meta:
         unique_together = ("applicant", "job")
+        ordering = ['-created_at']
 
         indexes = [
             models.Index(fields=[ "job", "status"])
