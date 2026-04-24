@@ -29,6 +29,7 @@ REST API для платформы вакансии с возможностью:
 1. Клонирование
 
 git clone https://github.com/jlxinn/job_board.git
+
 cd job_board
 
 2. Установка зависимостей
