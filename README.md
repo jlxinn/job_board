@@ -76,36 +76,36 @@ api/v1/docs/#/
 
 ### Companies
 
--GET     /api/v1/companies/
--POST    /api/v1/companies/
--GET     /api/v1/companies/{id}/
--PUT     /api/v1/companies/{id}/
--DELETE  /api/v1/companies/{id}/
+GET     /api/v1/companies/  
+POST    /api/v1/companies/  
+GET     /api/v1/companies/{id}/  
+PUT     /api/v1/companies/{id}/  
+DELETE  /api/v1/companies/{id}/  
 
--GET     /companies/my/
+-GET     /companies/my/  
 
 
 ### Jobs
 
--GET     /api/v1/jobs/
--POST    /api/v1/jobs/
--GET     /api/v1/jobs/{id}/
--PUT     /api/v1/jobs/{id}/
--DELETE  /api/v1/jobs/{id}/
+GET     /api/v1/jobs/  
+POST    /api/v1/jobs/  
+GET     /api/v1/jobs/{id}/  
+PUT     /api/v1/jobs/{id}/  
+DELETE  /api/v1/jobs/{id}/  
 
--GET     /jobs/my/
+GET     /jobs/my/  
 
 
 ### Applications
 
--GET     /api/v1/applications/
--POST    /api/v1/applications/
--GET     /api/v1/applications/{id}/
--PUT     /api/v1/applications/{id}/
--DELETE  /api/v1/applications/{id}/
+GET     /api/v1/applications/  
+POST    /api/v1/applications/  
+GET     /api/v1/applications/{id}/  
+PUT     /api/v1/applications/{id}/  
+DELETE  /api/v1/applications/{id}/  
 
--GET     /api/v1/applications/my/
--GET     /api/v1/applications/incoming/
+GET     /api/v1/applications/my/  
+GET     /api/v1/applications/incoming/  
 
 
 ## Фильтрация и поиск
