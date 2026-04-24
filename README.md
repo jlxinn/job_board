@@ -76,36 +76,36 @@ api/v1/docs/#/
 
 ### Companies
 
-GET     /api/v1/companies/  
-POST    /api/v1/companies/  
-GET     /api/v1/companies/{id}/  
-PUT     /api/v1/companies/{id}/  
-DELETE  /api/v1/companies/{id}/  
+GET     `/api/v1/companies/`  
+POST    `/api/v1/companies/`  
+GET     `/api/v1/companies/{id}/`  
+PUT     `/api/v1/companies/{id}/`  
+DELETE  `/api/v1/companies/{id}/`  
 
--GET     /companies/my/  
+GET     `/companies/my/`  
 
 
 ### Jobs
 
-GET     /api/v1/jobs/  
-POST    /api/v1/jobs/  
-GET     /api/v1/jobs/{id}/  
-PUT     /api/v1/jobs/{id}/  
-DELETE  /api/v1/jobs/{id}/  
+GET     `/api/v1/jobs/`  
+POST    `/api/v1/jobs/`  
+GET     `/api/v1/jobs/{id}/`  
+PUT     `/api/v1/jobs/{id}/`  
+DELETE  `/api/v1/jobs/{id}/`  
 
-GET     /jobs/my/  
+GET     `/jobs/my/`  
 
 
 ### Applications
 
-GET     /api/v1/applications/  
-POST    /api/v1/applications/  
-GET     /api/v1/applications/{id}/  
-PUT     /api/v1/applications/{id}/  
-DELETE  /api/v1/applications/{id}/  
+GET     `/api/v1/applications/`  
+POST    `/api/v1/applications/`  
+GET     `/api/v1/applications/{id}/`  
+PUT     `/api/v1/applications/{id}/`  
+DELETE  `/api/v1/applications/{id}/`  
 
-GET     /api/v1/applications/my/  
-GET     /api/v1/applications/incoming/  
+GET     `/api/v1/applications/my/`  
+GET     `/api/v1/applications/incoming/`  
 
 
 ## Фильтрация и поиск
@@ -160,11 +160,11 @@ GET     /api/v1/applications/incoming/
 
 ## Тестирование
 
--Запуск всех тестов:
+- Запуск всех тестов:
 
 python manage.py test
 
--Запуск конкретного Apps:
+-  конкретного Apps:
 
 python manage.py test apps.jobs
 
@@ -187,8 +187,7 @@ python manage.py test apps.jobs
 
 ## Автор
 
-Pet-project для практики DRF и подготовки к backend-собеседованиям. jlxinn0100@gmail.com
-
+Pet-project для практики DRF и подготовки к backend-собеседованиям. jlxinn
 ![Python](https://img.shields.io/badge/python-3.11-blue)
 ![Django](https://img.shields.io/badge/django-5.2-green)
 ![Coverage](https://img.shields.io/badge/coverage-89%25-brightgreen)
