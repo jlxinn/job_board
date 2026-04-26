@@ -5,14 +5,16 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import JobsPermissions
-from django.shortcuts import get_object_or_404
 from apps.companies.models import Company
 from .filters import JobFilters
+from django.shortcuts import get_object_or_404
+from rest_framework.exceptions import ValidationError
 
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from apps.pagination import CustomPagination
+from drf_spectacular.utils import extend_schema
 
 
 class JobViewSet(viewsets.ModelViewSet):
@@ -28,14 +30,24 @@ class JobViewSet(viewsets.ModelViewSet):
     ordering_fields = ['salary', 'created_at']
     ordering = ['-created_at']
 
+
+# При пост джобса можно не указывать компани. И можно указать в ручную. 
     def perform_create(self, serializer):
-        serializer.save()
+            company_id = self.request.data.get('company')
+            if company_id:
+                company = get_object_or_404(Company, id=company_id)
+            else:
+                company = Company.objects.filter(owner=self.request.user).first()
+                if not company:
+                    raise ValidationError({'company': 'У вас нет компаний'})
+            
+            serializer.save(company=company)
 
     def get_queryset(self):
         queryset = super().get_queryset()
         is_active = self.request.query_params.get('is_active')
 
-        if is_active is None:
+        if is_active is None and self.action !='my':
             queryset = queryset.filter(is_active=True)
 
         return queryset

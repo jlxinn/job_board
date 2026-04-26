@@ -5,7 +5,7 @@ from apps.companies.serializers import CompanySerializer
 
 class JobSerializer(serializers.ModelSerializer):
     company_detail = CompanySerializer(source='company', read_only=True)
-    company = serializers.PrimaryKeyRelatedField(queryset=Company.objects.all(), write_only=True)
+    company = serializers.PrimaryKeyRelatedField(queryset=Company.objects.all(), write_only=True, required=False)
 
 
     class Meta:
