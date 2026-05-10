@@ -14,7 +14,6 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from apps.pagination import CustomPagination
-from drf_spectacular.utils import extend_schema
 
 
 class JobViewSet(viewsets.ModelViewSet):

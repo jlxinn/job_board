@@ -5,7 +5,7 @@ from .models import Company
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ['owner', 'name', 'website', 'created_at']
     list_filter = ['owner', 'created_at']
-    search_fields = ['name', 'owner']
+    search_fields = ['name', 'owner__email']
     readonly_fields = ['created_at']
 
     fieldsets = (
