@@ -33,6 +33,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
         return Application.objects.filter(
             Q(applicant=user) | Q(job__company__owner=user)
         ).select_related('applicant', 'job__company').distinct()
+        # Здесь очень много данных ташит из за джоина нужно .only('название полей')
     
     def perform_create(self, serializer):
         serializer.save(applicant=self.request.user)

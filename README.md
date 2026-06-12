@@ -46,6 +46,18 @@ python manage.py migrate
 
 python manage.py runserver
 
+## Запуск через Докер
+
+1. Создать в backend файл `.env.docker`
+
+2. Скопировать `.env.example` в `.env.docker` и заполни поля
+
+3. Выполнить: `docker-compose up --build`
+
+4. Миграции: `docker-compose exec backend python manage.py migrate`
+
+5. Перейти в браузере на `http://localhost:8000`
+
 
 ## API документации
 
