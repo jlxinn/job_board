@@ -64,7 +64,13 @@ class StatusSerializer(serializers.ModelSerializer):
     def validate_status(self, value):
         instance = self.instance
 
-        if instance.status != 'pending':
-            raise serializers.ValidationError('Статус уже финальный')
+        if not instance:
+            return value
+
+        if instance.status in ['accepted', 'rejected']:
+            raise serializers.ValidationError('Статус уже финальный, нельзя изменить')
+        
+        if value not in ['accepted', 'rejected']:
+            raise serializers.ValidationError('Можно установить только "accepted" или "rejected"')
         
         return value

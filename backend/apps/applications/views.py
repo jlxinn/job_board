@@ -32,7 +32,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
 
         return Application.objects.filter(
             Q(applicant=user) | Q(job__company__owner=user)
-        ).distinct()
+        ).select_related('applicant', 'job__company').distinct()
     
     def perform_create(self, serializer):
         serializer.save(applicant=self.request.user)
