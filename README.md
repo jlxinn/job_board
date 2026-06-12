@@ -1,4 +1,4 @@
-# Job Board
+# Job Board API
 
 REST API для платформы вакансии с возможностью:
 
