@@ -132,7 +132,7 @@ class ApplicationTests(APITestCase):
         self.client.force_authenticate(user=self.employer)
 
         url = reverse('application-incoming') + '?status=pending'
-        response = self.client.get(url, {'status': 'pending '})
+        response = self.client.get(url, {'status': 'pending'})
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data['results']), 1)
